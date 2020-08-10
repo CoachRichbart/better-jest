@@ -1,0 +1,215 @@
+{
+    "name": "better-jest",
+    "displayName": "Better Jest",
+    "description": "A better Jest test runner for VS Code",
+    "version": "0.0.5",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "publisher": "CoachRichbart",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CoachRichbart/better-jest.git"
+    },
+    "icon": "icon.png",
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:better-jest.run",
+        "onCommand:better-jest.run-file",
+        "onCommand:better-jest.run-suite"
+    ],
+    "main": "./src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "better-jest.run",
+                "title": "Better Jest: run"
+            },
+            {
+                "command": "better-jest.run-file",
+                "title": "Better Jest: run file"
+            },
+            {
+                "command": "better-jest.run-suite",
+                "title": "Better Jest: run suite"
+            },
+            {
+                "command": "better-jest.run-previous",
+                "title": "Better Jest: run previous"
+            }
+        ],
+        "keybindings": [
+            {
+                "key": "cmd+k cmd+r",
+                "command": "better-jest.run"
+            },
+            {
+                "key": "cmd+k cmd+f",
+                "command": "better-jest.run-file"
+            },
+            {
+                "key": "cmd+k cmd+p",
+                "command": "better-jest.run-previous"
+            }
+        ],
+        "configuration": {
+            "title": "Better Jest configuration",
+            "properties": {
+                "better-jest.commandSuffix": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "This string will be appended to the jest command, it's a great place to add flags like '--stop-on-failure'"
+                },
+                "better-jest.jestBinary": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "A custom jest binary. Ex: 'jest', '/usr/local/bin/jest'"
+                },
+                "better-jest.xmlConfigFilepath": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "Absolute path for the Jest XML configuration file"
+                },
+                "better-jest.suiteSuffix": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "Specify options to appended only to the 'run suite' command, for example add options like '--testsuite unit' or '--coverage  --coverage-xml'"
+                },
+                "better-jest.ssh.enable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Run tests over SSH"
+                },
+                "better-jest.ssh.user": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "The user to connect as when running test via SSH"
+                },
+                "better-jest.ssh.host": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "The hostname to use when running tests via SSH"
+                },
+                "better-jest.ssh.port": {
+                    "type": [
+                        "integer"
+                    ],
+                    "default": 22,
+                    "description": "The port to use when running tests via SSH.  Deprecated, set better-jest.options to '-p[port]' on Linux/Mac, and '-P [port]' on Windows."
+                },
+                "better-jest.ssh.paths": {
+                    "type": "object",
+                    "default": {},
+                    "description": "The SSH path map. Keys are local (host) paths and values are remote (guest) paths."
+                },
+                "better-jest.ssh.binary": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "The path (and flags) to an SSH-compatible binary. If null it will use SSH on *nix and Putty on Windows."
+                },
+                "better-jest.ssh.disableAllOptions": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Do not include any config options in SSH command."
+                },
+                "better-jest.ssh.options": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "Additional command line options to pass to ssh/putty/plink"
+                },
+                "better-jest.docker.enable": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Run tests within a Docker container"
+                },
+                "better-jest.docker.command": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "default": null,
+                    "description": "The Docker command to execute a container. If null, an error will be thrown during execution."
+                },
+                "better-jest.docker.paths": {
+                    "type": "object",
+                    "default": {},
+                    "description": "The docker path map. Keys are local (host) paths and values are remote (container) paths."
+                }
+            }
+        },
+        "problemMatchers": [
+            {
+                "name": "jest",
+                "owner": "jest",
+                "fileLocation": "absolute",
+                "pattern": [
+                    {
+                        "regexp": "^\\d+\\)\\s.*$"
+                    },
+                    {
+                        "regexp": "^(.*)$",
+                        "message": 1
+                    },
+                    {
+                        "regexp": "^(.*):(\\d+)$",
+                        "file": 1,
+                        "location": 2
+                    }
+                ]
+            }
+        ],
+        "taskDefinitions": [
+            {
+                "type": "jest",
+                "required": [
+                    "task"
+                ],
+                "properties": {
+                    "task": {
+                        "type": "string",
+                        "description": "The task to execute"
+                    }
+                }
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.10.2",
+        "eslint": "^4.6.1",
+        "mocha": "^4.1.0",
+        "typescript": "^2.5.2",
+        "vscode": "^1.1.22"
+    },
+    "dependencies": {}
+}
