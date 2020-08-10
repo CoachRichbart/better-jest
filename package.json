@@ -43,15 +43,18 @@
         "keybindings": [
             {
                 "key": "cmd+k cmd+r",
-                "command": "better-jest.run"
+                "command": "better-jest.run",
+                "when": "editorLangId == javascript || editorLangId == typescript"
             },
             {
                 "key": "cmd+k cmd+f",
-                "command": "better-jest.run-file"
+                "command": "better-jest.run-file",
+                "when": "editorLangId == javascript || editorLangId == typescript"
             },
             {
                 "key": "cmd+k cmd+p",
-                "command": "better-jest.run-previous"
+                "command": "better-jest.run-previous",
+                "when": "editorLangId == javascript || editorLangId == typescript"
             }
         ],
         "configuration": {
