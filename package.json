@@ -2,7 +2,7 @@
     "name": "better-jest",
     "displayName": "Better Jest",
     "description": "A better Jest test runner for VS Code",
-    "version": "0.0.5",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.47.0"
     },
