@@ -50,7 +50,7 @@ module.exports = class JestCommand {
         let line = vscode.window.activeTextEditor.selection.active.line;
         let method;
 
-        while (line > 0) {
+        while (line >= 0) {
             const lineText = vscode.window.activeTextEditor.document.lineAt(line).text;
             const match = lineText.match(/^\s*(?:test|it)?\s*\(\s*(?:'|")(.*?)\s*(?:'|").*$/);
             if (match) {
